@@ -29,10 +29,13 @@ def operations(potencia, soma, subtracao, multiplicacao, divisao, logaritmo, rai
     numero2 = 0
 
     while conclusao != str(""):
+        
         numero = float(input())
         print(f"{numero}")
+        
         entrada = str(input())
         print(f"{numero} {entrada}")
+
         if entrada == "":
             print("Entrada esperada símbolo aritmético")
             while entrada not in operadores:
@@ -45,44 +48,52 @@ def operations(potencia, soma, subtracao, multiplicacao, divisao, logaritmo, rai
             print("Pressione a tecla ENTER para computar o valor")
             conclusao = input()
 
-    if entrada == operadores[0] and conclusao == "":
+    if entrada == "+" and conclusao == "":
         return soma(entrada, numero, numero2)
 
-    elif entrada == operadores[1] and conclusao == "":
+    elif entrada == "-" and conclusao == "":
         return subtracao(entrada, numero, numero2)
 
-    elif entrada == operadores[2] and conclusao == "":
+    elif entrada == "/" and conclusao == "":
         return divisao(entrada, numero, numero2)
 
-    elif entrada == operadores[3] and conclusao == "":
+    elif entrada == "*" and conclusao == "":
         return multiplicacao(entrada, numero, numero2)
 
-    elif entrada == operadores[4] and conclusao == "":
+    elif entrada == "^" and conclusao == "":
         return potencia(entrada, numero, numero2)
 
-    elif entrada == operadores[5] and conclusao == "":
+    elif entrada == "log" and conclusao == "":
         return logaritmo(entrada, numero, numero2)
 
-    elif entrada == operadores[6] and conclusao == "":
+    elif entrada == "raiz" and conclusao == "":
         return raiz(entrada, numero, numero2)
 
 
 def soma(entrada, numero, numero2):
-    resultado = numero + numero2
-    print(f"{numero} {entrada} {numero2} = {resultado}")
-    return menu()
-
+    try:
+        resultado = numero + numero2
+        print(f"{numero} {entrada} {numero2} = {resultado}")
+        return menu()
+    except:
+        print("Ocorreu um: G"+"o"*1000+"gle")
 
 def subtracao(entrada, numero, numero2):
-    resultado = numero - numero2
-    print(f"{numero} {entrada} {numero2} = {resultado}")
-    return menu()
-
+    try:
+        resultado = numero - numero2
+        print(f"{numero} {entrada} {numero2} = {resultado}")
+        return menu()
+    except:
+        print(1000*"e"+"lgooG mu uerrocO\n"
+        "Tente outra operação")
 
 def multiplicacao(entrada, numero, numero2):
-    resultado = numero * numero2
-    print(f"{numero} {entrada} {numero2} = {resultado}")
-    return menu()
+    try:
+        resultado = numero * numero2
+        print(f"{numero} {entrada} {numero2} = {resultado}")
+        return menu()
+    except:
+        print("Ocorreu um erro!\n Tente outra operação")
 
 
 def divisao(entrada, numero, numero2):
@@ -91,28 +102,36 @@ def divisao(entrada, numero, numero2):
         print(f"{numero} {entrada} {numero2} = {resultado}")
         return menu()
 
-    except numero2 == 0:
-        print("Erro de sintaxe, a operação de divisão por 0 não é válida\n"
+    except:
+        print("Erro de sintaxe ou processamento, a operação não é válida\n"
               "Por favor tente outra operação!")
-        return divisao(entrada, numero, numero2)
+        return operations(potencia, soma, subtracao,
+            multiplicacao, divisao, logaritmo, raiz)
 
 
 def potencia(entrada, numero, numero2):
-    resultado = numero ** numero2
-    print(f" {numero} {entrada} {numero2} = {resultado}")
-    return menu()
+    try:
+        resultado = numero ** numero2
+        print(f" {numero} {entrada} {numero2} = {resultado}")
+        return menu()
+    except:
+        print("Ocorreu um: G"+"o"*1000+"gle\n"
+                "Tente outra operação")
+        return operations(potencia, soma, subtracao,
+            multiplicacao, divisao, logaritmo, raiz)
 
 
-def raiz(entrada, numero, numero2):
+def raiz(numero, numero2):
     try:
         resultado = numero ** (1 / numero2)
         print(f"Raiz {numero2} de {numero} = {resultado}")
         return menu()
 
-    except numero < 0 or numero2 == 0:
+    except:
         print("Erro de sintaxe, a operação não é válida\n"
               "Por favor tente outra operação!")
-        return raiz(entrada, numero, numero2)
+        return operations(potencia, soma, subtracao, 
+            multiplicacao, divisao, logaritmo, raiz)
 
 
 def logaritmo(entrada, numero, numero2):
@@ -121,10 +140,11 @@ def logaritmo(entrada, numero, numero2):
         print(f"{entrada} de ({numero},{numero2})={resultado}")
         return menu()
 
-    except (numero != 1 and numero > 0 or numero2 != 0):
+    except:
         print("Erro de sintaxe, a operação não é válida\n"
               "Por favor tente outra operação!")
-        return logaritmo(entrada, numero, numero2)
+        return operations(potencia, soma, subtracao,
+            multiplicacao, divisao, logaritmo, raiz)
 
 
 menu()
